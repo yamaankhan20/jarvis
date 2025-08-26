@@ -1,16 +1,20 @@
 import datetime
 
 def get_time_based_greeting() -> str:
-    """Return a more natural greeting depending on the current time of day."""
+    """Return a warm and natural greeting depending on the current time of day."""
     hour = datetime.datetime.now().hour
 
-    if 5 <= hour < 12:
-        return "🌅 Good morning!"
+    if 5 <= hour < 8:
+        return "🌄 Good early morning! Wishing you a fresh and energetic start."
+    elif 8 <= hour < 12:
+        return "☀️ Good morning! Hope your day is going well."
     elif 12 <= hour < 15:
-        return "☀️ Good afternoon!"
+        return "🍽️ Good afternoon! Don’t forget to take a lunch break."
     elif 15 <= hour < 18:
-        return "🌤️ Good evening!"
-    elif 18 <= hour < 22:
-        return "🌙 Good night!"
+        return "🌤️ Good evening! Keep up the great work."
+    elif 18 <= hour < 21:
+        return "🌆 Good evening! Time to relax and unwind."
+    elif 21 <= hour < 23:
+        return "🌙 Good night! Wishing you peace and rest."
     else:
-        return "🛌 It's late, hope you're doing well!"
+        return "🌌 It's late night! Take care and get some rest."
