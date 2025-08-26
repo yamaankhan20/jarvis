@@ -13,12 +13,12 @@ jobs:
 
       - name: Get PR Diff
         run: |
-          git fetch origin master
-          git diff origin/master...HEAD > pr_diff.txt
+          git fetch origin ${{ github.base_ref }}
+          git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
 
       - name: Send Diff to AI Review Bot
         run: |
-          curl -X POST http://127.0.0.1:8000/review \
+          curl -X POST https://your-fastapi-server.com/review \
           -H "Content-Type: application/json" \
           -d '{
             "repo_full_name": "${{ github.repository }}",
