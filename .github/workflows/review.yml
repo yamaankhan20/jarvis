@@ -27,3 +27,6 @@ jobs:
             "pr_number": ${{ github.event.pull_request.number }},
             "diff": "'"$(cat pr_diff.txt | sed 's/"/\\"/g')"'" 
           }'
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
