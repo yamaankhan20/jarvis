@@ -20,7 +20,7 @@ jobs:
 
       - name: Send Diff to AI Review Bot
         run: |
-          curl -X POST http://127.0.0.1:8000/review \
+          curl -X POST https://ai-based-pr-review.onrender.com/review \
           -H "Content-Type: application/json" \
           -d '{
             "repo_full_name": "${{ github.repository }}",
