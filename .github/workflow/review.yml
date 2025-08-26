@@ -1,0 +1,27 @@
+name: AI Code Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+
+      - name: Get PR Diff
+        run: |
+          git fetch origin master
+          git diff origin/master...HEAD > pr_diff.txt
+
+      - name: Send Diff to AI Review Bot
+        run: |
+          curl -X POST http://127.0.0.1:8000/review \
+          -H "Content-Type: application/json" \
+          -d '{
+            "repo_full_name": "${{ github.repository }}",
+            "pr_number": ${{ github.event.pull_request.number }},
+            "diff": "'"$(cat pr_diff.txt | sed 's/"/\\"/g')"'" 
+          }'
