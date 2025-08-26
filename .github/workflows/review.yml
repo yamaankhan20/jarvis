@@ -7,6 +7,7 @@ on:
 jobs:
   review:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
@@ -18,15 +19,21 @@ jobs:
           git fetch origin ${{ github.base_ref }}
           git diff origin/${{ github.base_ref }}...HEAD > pr_diff.txt
 
+      - name: Show Debug Info (optional)
+        run: |
+          echo "Repo: ${{ github.repository }}"
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          head -n 20 pr_diff.txt
+
       - name: Send Diff to AI Review Bot
         run: |
           curl -X POST https://ai-based-pr-review.onrender.com/review \
           -H "Content-Type: application/json" \
           -d '{
             "repo_full_name": "${{ github.repository }}",
-            "pr_number": ${{ github.event.pull_request.number }},
+            "pr_number": '${{ github.event.pull_request.number }}',
             "diff": "'"$(cat pr_diff.txt | sed 's/"/\\"/g')"'" 
           }'
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
