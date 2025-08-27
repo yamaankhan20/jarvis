@@ -12,7 +12,5 @@ def get_time_based_greeting() -> str:
         return "🍽️ Good afternoon! Don’t forget to take a lunch break."
     elif 15 <= hour < 18:
         return "🌤️ Good evening! Keep up the great work."
-    elif 18 <= hour < 21:
-        return "🌆 Good evening! Time to relax and unwind."
     else:
         return "🌌 It's late night! Take care and get some rest."
