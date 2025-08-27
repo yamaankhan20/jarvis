@@ -16,7 +16,7 @@ def get_working_microphone():
         except Exception as e:
             continue
 
-    print("No working microphone found. Defaulting to 0.")
+    print("No working microphone. Defaulting to 0.")
     return 0
 
 
